@@ -41,11 +41,11 @@ Happy OpenPiping!!!
 #include "samples.h"	// SOUND SAMPLES
 
 // SELECT HERE WICH INSTRUMENT TO USE
-//#define GAITA_GALEGA
-#define GHB
+#define GAITA_GALEGA
+//#define GHB
 
 // DISABLE DRONE COMMENTING THE FOLLOWING LINE
-//#define ENABLE_DRONE
+#define ENABLE_DRONE
 
 // THE FOLLOWING LINES ASSOCAITES FINGERINGS AND SOUND SAMPLES FOR EVERY INSTRUMENT
 #ifdef GAITA_GALEGA
@@ -427,8 +427,8 @@ ISR(TIMER1_COMPA_vect) {
   // PLAY PREVIOUS SAMPLE IF THE CURRENT ONE IS NOT FOUND
   if (sample==0xFF){
     //OCR2A=0;
-    return;
-    //sample=previous_sample;
+    //return;
+    sample=previous_sample;
   }
   
   // WAIT FOR THE SAMPLE TO FINISH IN ORDER TO AVOID 'CLICKS'
@@ -456,9 +456,9 @@ ISR(TIMER1_COMPA_vect) {
   // MIX NOTE AND DRONE SAMPLES
   int16_t out;
   out=0;
-  out=pgm_read_byte_near(((uint8_t*)samples_table[drone_sample].sample) + drone_index);
-  out+=pgm_read_byte_near(((uint8_t*)samples_table[previous_sample].sample) + sample_index);
-  out=out/2;
+  out=pgm_read_byte_near(((uint8_t*)samples_table[drone_sample].sample) + drone_index)*2;
+  out+=pgm_read_byte_near(((uint8_t*)samples_table[previous_sample].sample) + sample_index)*8;
+  out=out>>4;
   OCR2A=out;
 #else
   // UPDATE PWM
