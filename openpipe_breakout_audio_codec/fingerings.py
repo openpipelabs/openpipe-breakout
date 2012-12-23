@@ -77,6 +77,24 @@ great_highland_bagpipe=(
 	(14,("-O OOO CCCO", "-O --- ----")), # HIGH A	
 )
 
+# UILLEANN PIPE
+uilleann_pipe=(
+	("UILLEANN PIPE"), #FINGERING NAME
+	(62), #BASE MIDI NOTE (THE LOWEST IN THE TABLE)
+	(62), #TONIC MIDI NOTE
+	(0), #DRONE MIDI NOTE
+	#FINGERINGS (SEMITONES FROM BASE NOTE, (FINGERINGS,))
+	(0,("-C CCC CCCC",)), # D  
+	(2,("-C CCC CCOO",)), # E 
+	(4,("-C CCC COCC",)), # F#
+	(5,("-C CCC OOCC",)), # G 
+	(7,("-C CCO CCCC",)), # A
+	(9,("-C COO CCCC",)), # B
+	(10,("-C OCC COCC",)), # C
+	(11,("-C OCC CCCC",)), # C#
+	(12,("-O CCC CCCC",)), # D
+)
+
 # SACKPIPA
 #http://olle.gallmo.se/sackpipa/playing.php?lang=en
 sackpipa=(
@@ -103,6 +121,7 @@ sackpipa=(
 fingerings=[]
 fingerings.append(great_highland_bagpipe)
 fingerings.append(galician_mastergaita)
+fingerings.append(uilleann_pipe)
 fingerings.append(sackpipa)
 
 output="""

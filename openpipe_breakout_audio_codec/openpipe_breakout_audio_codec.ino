@@ -35,7 +35,8 @@ Happy OpenPiping!!!
  
  // SELECT HERE WICH INSTRUMENT TO USE
 //#define GAITA_GALEGA
-#define GHB
+//#define GHB
+#define UILLEANN
 //#define SACKPIPA
 
 // DISABLE DRONE COMMENTING THE FOLLOWING LINE
@@ -62,6 +63,11 @@ Happy OpenPiping!!!
 #ifdef GHB
   #define FINGERING FINGERING_GREAT_HIGHLAND_BAGPIPE  
   #define INSTRUMENT INSTRUMENT_GHB
+#endif
+
+#ifdef UILLEANN
+	#define FINGERING FINGERING_UILLEANN_PIPE
+	#define INSTRUMENT INSTRUMENT_UILLEANN
 #endif
 
 #ifdef SACKPIPA
@@ -151,7 +157,7 @@ void loop()
   if (fingers!=previous_fingers || control!=previous_control){
 
     //TODO: add every electrode in fingerss & control
-    /*
+    
     for (int i=8; i>=0; i--){
       if (fingers&(1<<i)) Serial.print("*");
       else Serial.print("O");
@@ -161,7 +167,7 @@ void loop()
       if (control&(1<<i)) Serial.print("*");
       else Serial.print("O");
     }
-    */
+    
 
     previous_fingers=fingers;
     previous_control=control;
@@ -170,13 +176,13 @@ void loop()
       note=fingers_to_note(fingers);
       sample=note_to_sample(note);
       
-      /*
+      
       Serial.print(" NOTE: ");
       Serial.print(note);
       Serial.print(" SAMPLE: ");
       Serial.print(sample);
       Serial.println();
-      */
+      
       
     }else{
       sample=0xFF;
