@@ -17,19 +17,18 @@
  */
  
  /******************************************************************************
-OPENPIPE BREAKOUT AUDIO CODEC:
+OPENPIPE BREAKOUT & MIDI-USB SHIELD:
 This Arduino sketch allows Openpipe Breakout [1] connected to an Arduino UNO 
-using Audio Codec Shield from openmusiclabs [2] to generate bagpipes sounds 
-based on sound samples (44100 Hz @ 16bit).
+using MIDI-USB Shield [2] to send MIDI commands to computer or Apple/Android
+tablets.
 
 You could generate your own fingering tables with provided fingerings.py script
-You could also generate your own sound samples with provided samples.py script
 
 For more electronics bagpipes info please visit openpipe.cc
 Happy OpenPiping!!!
 
 [1] http://openpipe.cc/products/openpipe-breakout-board/
-[2] http://www.openmusiclabs.com/projects/codec-shield/
+[2] http://openpipe.cc/products/midi-usb-shield/
 
 ******************************************************************************/
  
@@ -60,7 +59,6 @@ void setup()
   pinMode(LED, OUTPUT);
   MIDI.begin(4);            	// Launch MIDI with default options
 				// input channel is set to 4
-
   fingering_table=fingerings[FINGERING].table;
   
   Wire.begin();
