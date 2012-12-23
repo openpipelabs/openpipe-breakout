@@ -139,7 +139,7 @@ void loop()
       else Serial.print("O");
     }
     Serial.print(" ");
-    for (int i=0; i<1; i++){
+    for (int i=2; i>=0; i--){
       if (control&(1<<i)) Serial.print("*");
       else Serial.print("O");
     }
@@ -173,6 +173,7 @@ uint16_t read_fingers(void){
 
   char buffer[32];
   int i=0;
+  unsigned int tmp;
 
   // READ MPR121
   Wire.beginTransmission(0x5A);
@@ -193,10 +194,20 @@ uint16_t read_fingers(void){
     ((buffer[0]&(1<<7))>>3) |
     ((buffer[0]&(1<<6))>>1) |
     ((buffer[1]&(1<<2))<<4) |
-    ((buffer[1]&(1<<1))<<6);
+    ((buffer[1]&(1<<1))<<6) |
+    ((buffer[1]&(1<<3))<<5);
 
   // READ RIGHT THUMB CONTROL ELECTRODES
   control=(buffer[0]&(1<<5))>>5;
+  control|=(buffer[0]&(1<<3))>>2;
+  control|=(buffer[1]&(1<<0))<<2;
+  
+  
+  //tmp=(unsigned char)buffer[(0*2)+0x04] | (unsigned char)(buffer[(0*2)+0x05]<<8);
+  //Serial.print((unsigned char)buffer[0x05], HEX);
+  //Serial.print((unsigned char)buffer[0x04], HEX);
+  //Serial.print(" ");
+  //Serial.println(tmp, DEC);
 
   return fingers;
 }
