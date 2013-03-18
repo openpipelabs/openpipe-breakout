@@ -162,3 +162,9 @@ output+="};\r\n"
 
 print output
 
+f = open('fingerings.h', 'w')
+f.write(output)
+f.close
+
+
+
