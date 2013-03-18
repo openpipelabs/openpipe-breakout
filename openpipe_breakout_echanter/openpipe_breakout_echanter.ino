@@ -99,6 +99,13 @@ void setup()
   
 
   pinMode(ledPin,OUTPUT);
+  
+  pinMode(A3,OUTPUT);
+  pinMode(A2,OUTPUT);
+  
+  digitalWrite(A3, LOW); //GND
+  digitalWrite(A2, HIGH);   //VCC
+  
 
   Wire.begin();
   mpr121QuickConfig();
