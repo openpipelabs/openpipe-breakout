@@ -3,7 +3,7 @@
 // FILE AUTOMATICALLY GENERATED USING fingerings.py
 // DO NOT EDIT BY HAND
 
-	
+    
 // GAITA GALEGA
 const char fingering_name_0[]={"GAITA GALEGA"};
 const unsigned long fingering_table_0[]={
@@ -36,10 +36,36 @@ const unsigned long fingering_table_0[]={
 	0x803EFFFF, 0x19000000,
 	0xFFFFFFFF
 };
-	
-// GREAT HIGHLAND BAGPIPE
-const char fingering_name_1[]={"GREAT HIGHLAND BAGPIPE"};
+    
+// GAITA ASTURIANA
+const char fingering_name_1[]={"GAITA ASTURIANA"};
 const unsigned long fingering_table_1[]={
+	71,72,48,
+	0x80FFFFFF, 0x00000000,
+	0x80FEFFFF, 0x01000000,
+	0x80FDFFFF, 0x02000000,
+	0x80FCFFFF, 0x03000000,
+	0x80F8FFFF, 0x04000000,
+	0x80FAFFFF, 0x05000000,
+	0x80F6FFFF, 0x06000000,
+	0x80F7FFFF, 0x07000000,
+	0x80EEFFFF, 0x08000000,
+	0x80C6FFFF, 0x09000000,
+	0x80CFFFFF, 0x0A000000,
+	0x808EFFFF, 0x0B000000,
+	0x804EFFFF, 0x0C000000,
+	0x807EFFFF, 0x80BEFFFF, 0x0D000000,
+	0x8036FFFF, 0x0E000000,
+	0x807CFFFF, 0x0F000000,
+	0x8078FFFF, 0x10000000,
+	0x807AFFFF, 0x11000000,
+	0x8076FFFF, 0x12000000,
+	0xFFFFFFFF
+};
+    
+// GREAT HIGHLAND BAGPIPE
+const char fingering_name_2[]={"GREAT HIGHLAND BAGPIPE"};
+const unsigned long fingering_table_2[]={
 	67,69,57,
 	0x80FFFFFF, 0x00000000,
 	0x80FEFFFF, 0x02000000,
@@ -54,17 +80,18 @@ const unsigned long fingering_table_1[]={
 };
 
 #define FINGERING_GAITA_GALEGA 0
-#define FINGERING_GREAT_HIGHLAND_BAGPIPE 1
+#define FINGERING_GAITA_ASTURIANA 1
+#define FINGERING_GREAT_HIGHLAND_BAGPIPE 2
 
 
 typedef struct{
-	char* name;
-	unsigned long* table;
+    char* name;
+    unsigned long* table;
 }fingering_t;
 
-#define TOTAL_FINGERINGS 2
+#define TOTAL_FINGERINGS 3
 const fingering_t fingerings[TOTAL_FINGERINGS]={
 	{(char*)fingering_name_0, (unsigned long*)fingering_table_0},
 	{(char*)fingering_name_1, (unsigned long*)fingering_table_1},
+	{(char*)fingering_name_2, (unsigned long*)fingering_table_2},
 };
-
