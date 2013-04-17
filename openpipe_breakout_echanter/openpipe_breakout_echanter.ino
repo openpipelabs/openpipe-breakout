@@ -41,7 +41,8 @@ Happy OpenPiping!!!
 #include "samples.h"	// SOUND SAMPLES
 
 // SELECT HERE WICH INSTRUMENT TO USE
-#define GAITA_GALEGA
+//#define GAITA_GALEGA
+#define GAITA_ASTURIANA
 //#define GHB
 
 // DISABLE DRONE COMMENTING THE FOLLOWING LINE
@@ -53,6 +54,11 @@ Happy OpenPiping!!!
   #define INSTRUMENT INSTRUMENT_GAITA_GALEGA
 #endif
 
+#ifdef GAITA_ASTURIANA
+  #define FINGERING FINGERING_GAITA_ASTURIANA
+  #define INSTRUMENT INSTRUMENT_GAITA_ASTURIANA
+#endif
+
 #ifdef GHB
   #define FINGERING FINGERING_GREAT_HIGHLAND_BAGPIPE  
   #define INSTRUMENT INSTRUMENT_GHB
@@ -62,7 +68,7 @@ Happy OpenPiping!!!
 #define SAMPLE_RATE 44100	// THIS PARAMETER MUST MATCH THE CORRESPONDING ONE IN samples.py
 
 /* AUDIO/VISUAL OUTPUT PINS */
-int ledPin = 13;
+int LED = 13;
 int speakerPin = 11;
 
 // GLOBAL VARIABLES
@@ -98,7 +104,7 @@ void setup()
   Serial.println(drone_sample_length,DEC);
   
 
-  pinMode(ledPin,OUTPUT);
+  pinMode(LED,OUTPUT);
   
   pinMode(A3,OUTPUT);
   pinMode(A2,OUTPUT);
@@ -181,6 +187,8 @@ uint16_t read_fingers(void){
   char buffer[32];
   int i=0;
   unsigned int tmp;
+  
+  digitalWrite(LED, HIGH);
 
   // READ MPR121
   Wire.beginTransmission(0x5A);
@@ -192,6 +200,8 @@ uint16_t read_fingers(void){
     if (i>18) break;
   }
   Wire.endTransmission();
+  
+  digitalWrite(LED, LOW);
 
   // SORT MPR121 ELECTRODES
   fingers=   ((buffer[0]&(1<<0))>>0) | 
@@ -362,11 +372,11 @@ void mpr121QuickConfig(void)
   mpr121Write(ELE_CFG, 0x0C);	// Enables all 12 Electrodes
 
   // Section F
-  // Enable Auto Config and auto Reconfig
+  // Enable Auto Config and auto Reconfig @5V
   mpr121Write(ATO_CFG0, 0x0B);
-  mpr121Write(ATO_CFGU, 0xC9);	// USL = (Vdd-0.7)/vdd*256 = 0xC9 @3.3V
-  mpr121Write(ATO_CFGL, 0x82);	// LSL = 0.65*USL = 0x82 @3.3V
-  mpr121Write(ATO_CFGT, 0xB5);  // Target = 0.9*USL = 0xB5 @3.3V
+  mpr121Write(ATO_CFGU, 0xDC);	// USL = (Vdd-0.7)/vdd*256
+  mpr121Write(ATO_CFGL, 0x8F);	// LSL = 0.65*USL
+  mpr121Write(ATO_CFGT, 0xC6);  // Target = 0.9*USL
 
 }
 
