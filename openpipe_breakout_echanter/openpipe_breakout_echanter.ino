@@ -41,12 +41,12 @@ Happy OpenPiping!!!
 #include "samples.h"	// SOUND SAMPLES
 
 // SELECT HERE WICH INSTRUMENT TO USE
-//#define GAITA_GALEGA
-#define GAITA_ASTURIANA
+#define GAITA_GALEGA
+//#define GAITA_ASTURIANA
 //#define GHB
 
 // DISABLE DRONE COMMENTING THE FOLLOWING LINE
-#define ENABLE_DRONE
+//#define ENABLE_DRONE
 
 // THE FOLLOWING LINES ASSOCAITES FINGERINGS AND SOUND SAMPLES FOR EVERY INSTRUMENT
 #ifdef GAITA_GALEGA
@@ -372,11 +372,11 @@ void mpr121QuickConfig(void)
   mpr121Write(ELE_CFG, 0x0C);	// Enables all 12 Electrodes
 
   // Section F
-  // Enable Auto Config and auto Reconfig @5V
+  // Enable Auto Config and auto Reconfig @3.3V
   mpr121Write(ATO_CFG0, 0x0B);
-  mpr121Write(ATO_CFGU, 0xDC);	// USL = (Vdd-0.7)/vdd*256
-  mpr121Write(ATO_CFGL, 0x8F);	// LSL = 0.65*USL
-  mpr121Write(ATO_CFGT, 0xC6);  // Target = 0.9*USL
+  mpr121Write(ATO_CFGU, 0xC9);	// USL = (Vdd-0.7)/vdd*256
+  mpr121Write(ATO_CFGL, 0x83);	// LSL = 0.65*USL
+  mpr121Write(ATO_CFGT, 0xB5);  // Target = 0.9*USL
 
 }
 

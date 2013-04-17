@@ -152,7 +152,7 @@ const unsigned long fingering_table_%i[]={
             #"-C CCC CCCC -"
             f=0x0        # FINGER VALUE
             m=0xFFFF    # MASK VALUE
-            for i,pos in enumerate((10,9,8,7,5,4,3,1)):
+            for i,pos in enumerate((10,9,8,7,5,4,3,1,0)):
                 if fingers[pos]=='C':
                     f+=2**i
                 if fingers[pos]=='-':
