@@ -32,21 +32,6 @@ Happy OpenPiping!!!
 [2] http://www.openmusiclabs.com/projects/codec-shield/
 
 ******************************************************************************/
- 
- // SELECT HERE WICH INSTRUMENT TO USE
-//#define GAITA_GALEGA
-//#define GHB
-#define UILLEANN
-//#define SACKPIPA
-
-// DISABLE DRONE COMMENTING THE FOLLOWING LINE
-//#define ENABLE_DRONE
-
-// setup codec parameters
-// must be done before #includes
-#define SAMPLE_RATE 44 // 44.1kHz sample rate in accordance with samples.py
-#define ADCS 0
-
 #include <Wire.h>     // Wiring two-wire library for I2C
 #include <SPI.h>
 #include <AudioCodec.h>
@@ -54,10 +39,23 @@ Happy OpenPiping!!!
 #include "fingerings.h"
 #include "samples.h"
 
+// SELECT HERE WICH INSTRUMENT TO USE
+//#define GAITA_GALEGA
+//#define GAITA_ASTURIANA
+//#define GHB
+//#define UILLEANN
+#define SACKPIPA
+
 // THE FOLLOWING LINES ASSOCAITES FINGERINGS AND SOUND SAMPLES FOR EVERY INSTRUMENT
 #ifdef GAITA_GALEGA
   #define FINGERING FINGERING_GAITA_GALEGA
   #define INSTRUMENT INSTRUMENT_GAITA_GALEGA
+  //#define INSTRUMENT INSTRUMENT_SINUSOIDS
+#endif
+
+#ifdef GAITA_ASTURIANA
+  #define FINGERING FINGERING_GAITA_ASTURIANA
+  #define INSTRUMENT INSTRUMENT_GAITA_ASTURIANA
 #endif
 
 #ifdef GHB
@@ -66,14 +64,19 @@ Happy OpenPiping!!!
 #endif
 
 #ifdef UILLEANN
-	#define FINGERING FINGERING_UILLEANN_PIPE
-	#define INSTRUMENT INSTRUMENT_UILLEANN
+  #define FINGERING FINGERING_UILLEANN_PIPE
+  #define INSTRUMENT INSTRUMENT_UILLEANN
 #endif
 
 #ifdef SACKPIPA
-  #define FINGERING FINGERING_SACKPIPA  
+  #define FINGERING FINGERING_SACKPIPA
   #define INSTRUMENT INSTRUMENT_SACKPIPA
 #endif
+
+// setup codec parameters
+// must be done before #includes
+#define SAMPLE_RATE 44 // 44.1kHz sample rate in accordance with samples.py
+#define ADCS 0
 
 
 // GLOBAL VARIABLES
@@ -95,6 +98,8 @@ uint8_t previous_sample,sample, drone_sample;
 uint16_t sample_index, drone_index;
 uint16_t drone_sample_length;
 
+uint8_t drone=0;
+
 sample_t* samples_table;
 
 void setup()
@@ -102,8 +107,16 @@ void setup()
   Serial.begin(115200);
   Serial.write("SETUP...\r\n");
   
+  // POWER OPENPIPE
+  pinMode(A3,OUTPUT);
+  pinMode(A2,OUTPUT);
+  
+  digitalWrite(A3, LOW);    //GND
+  digitalWrite(A2, HIGH);   //VCC
+  
   fingering_table=fingerings[FINGERING].table;
-  samples_table=instruments[INSTRUMENT].samples;
+  //samples_table=instruments[INSTRUMENT].samples;
+  samples_table=INSTRUMENT;
   
   drone_sample=note_to_sample(fingering_table[2]);
   drone_sample_length=samples_table[drone_sample].len;
@@ -111,9 +124,9 @@ void setup()
   Serial.write("FINGERING: ");
   Serial.write(fingerings[FINGERING].name);
   Serial.write("\r\n");
-  Serial.write("INSTRUMENT: ");
-  Serial.write(instruments[INSTRUMENT].name); 
-  Serial.write("\r\n");
+  //Serial.write("INSTRUMENT: ");
+  //Serial.write(instruments[INSTRUMENT].name); 
+  //Serial.write("\r\n");
   
   Serial.print("DRONE NOTE: ");
   Serial.print(fingering_table[2],DEC);
@@ -163,7 +176,7 @@ void loop()
       else Serial.print("O");
     }
     Serial.print(" ");
-    for (int i=0; i<1; i++){
+    for (int i=0; i<3; i++){
       if (control&(1<<i)) Serial.print("*");
       else Serial.print("O");
     }
@@ -187,6 +200,18 @@ void loop()
     }else{
       sample=0xFF;
       Serial.println(" SILENCE");
+      if (control&2){
+      	if (drone==1){
+      		drone=0;
+      		Serial.println("DRONE OFF");
+      	}else{
+      		drone=1;
+      		Serial.println("DRONE ON");
+      	}
+      	do{
+      		read_fingers();
+      	}while (control&2);
+      }
     }      
   }
   return;
@@ -218,8 +243,10 @@ uint16_t read_fingers(void){
     ((buffer[1]&(1<<2))<<4) |
     ((buffer[1]&(1<<1))<<6);
 
-  // READ RIGHT THUMB CONTROL ELECTRODES
+    // READ RIGHT THUMB CONTROL ELECTRODES
   control=(buffer[0]&(1<<5))>>5;
+  control|=(buffer[0]&(1<<3))>>2;
+  control|=(buffer[1]&(1<<0))<<2;
 
   return fingers;
 }
@@ -400,21 +427,21 @@ ISR(TIMER1_COMPA_vect) { // dont store any registers
   int16_t out;
   out=0;
   
-#ifdef ENABLE_DRONE
-
-  // LOOP DRONE SAMPLE
-  if (drone_index==drone_sample_length){
-    drone_index=0;
+  if (drone){
+	  // LOOP DRONE SAMPLE
+	  if (drone_index==drone_sample_length){
+	    drone_index=0;
+	  }else{
+	    drone_index++;
+	  }
+	  
+	  // MIX NOTE AND DRONE SAMPLES
+	  out=pgm_read_word_near(((int16_t*)samples_table[drone_sample].sample) + drone_index)/32;
+	  out+=pgm_read_word_near(((int16_t*)samples_table[previous_sample].sample) + sample_index)/4;
+	  
   }else{
-    drone_index++;
+    out = pgm_read_word_near(((int16_t*)samples_table[previous_sample].sample) + sample_index);
   }
-  
-  // MIX NOTE AND DRONE SAMPLES
-  out=pgm_read_word_near(((int16_t*)samples_table[drone_sample].sample) + drone_index)/32;
-  out+=pgm_read_word_near(((int16_t*)samples_table[previous_sample].sample) + sample_index)/4;
-#else
-  out = pgm_read_word_near(((int16_t*)samples_table[previous_sample].sample) + sample_index);
-#endif
   
   left_out = out;
   right_out = -out;
