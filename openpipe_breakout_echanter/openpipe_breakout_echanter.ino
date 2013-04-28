@@ -108,9 +108,12 @@ void setup()
   
   pinMode(A3,OUTPUT);
   pinMode(A2,OUTPUT);
+  pinMode(12,OUTPUT);
+  
   
   digitalWrite(A3, LOW); //GND
   digitalWrite(A2, HIGH);   //VCC
+  digitalWrite(12, LOW); //SPEAKER GND
   
 
   Wire.begin();
@@ -404,7 +407,7 @@ void startPlayback()
   TCCR2B = (TCCR2B & ~(_BV(CS12) | _BV(CS11))) | _BV(CS10);
 
   // Set initial pulse width to the first sample.
-  OCR2A = 0;
+  OCR2A = 127;
 
   // Set up Timer 1 to send a sample every interrupt.
   cli();
@@ -448,7 +451,7 @@ ISR(TIMER1_COMPA_vect) {
   
   // STOP SOUND
   if (!(control&1)){
-   	OCR2A=0;
+   	OCR2A=127;
     return;
   }
   
