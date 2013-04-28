@@ -50,6 +50,7 @@ uint16_t control;
 uint8_t previous_note,note;
 int previous_fingers, previous_control;
 unsigned long * fingering_table;
+boolean noteoff;
 
 #define LED 13   		// LED pin on Arduino board
 
@@ -84,6 +85,7 @@ void loop()
     
     if (control&1){
       note=fingers_to_note(fingers);
+      noteoff=true;
       if (note!=previous_note){
          MIDI.sendNoteOff(previous_note,127,1);   // Stop the note
          MIDI.sendNoteOn(note,127,1);   // Start the note
@@ -91,7 +93,10 @@ void loop()
       }
       
     }else{
-       MIDI.sendNoteOff(note,0,1);   // Stop the note
+       if (noteoff){
+         MIDI.sendNoteOff(note,0,1);   // Stop the note
+         noteoff = false;
+       }   
     }      
   }
   return;
