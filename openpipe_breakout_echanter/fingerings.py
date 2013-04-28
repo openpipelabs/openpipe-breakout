@@ -88,17 +88,17 @@ asturian_gaita=(
     (5,("-C CCC COCO",)), # E4
     (6,("-C CCC OCCO",)), # F4
     (7,("-C CCC OCCC",)), # F#4
-    (8,("-C CCO CCCO",)), # G4
+    (8,("-C CCO CCCO", "-C CCO COCO", "-C CCO OCCO")), # G4
     (9,("-C COO OCCO",)), # Ab4
-    (10,("-C COO CCCC",)), # A4
+    (10,("-C COO CCCO", "-C COO CCCC")), # A4
     (11,("-C OOO CCCO",)), # Bb4
-    (12,("-O COO CCCO",)), # B4
+    (12,("-O COO CCCO", "-C OCC CCCC", "-O CCC CCCC")), # B4
     (13,("-O CCC CCCO", "-C OCC CCCO")), # C5
     (14,("-O OCC OCCO",)), # C#5
-    (15,("-O CCC CCOO",)), # D5
+    (15,("-O CCC CCOO", "-C OCC CCOO")), # D5
     (16,("-O CCC COOO",)), # Eb5
     (17,("-O CCC COCO",)), # E5
-    (18,("-O CCC OCCO",)), # F5    
+    (18,("-O CCC OCCO",)), # F5
 )
 
 # GREAT HIGHLAND BAGPIPE
