@@ -78,10 +78,46 @@ const unsigned long fingering_table_2[]={
 	0x800EFEFF, 0x8000FEF0, 0x0E000000,
 	0xFFFFFFFF
 };
+    
+// UILLEANN PIPE
+const char fingering_name_3[]={"UILLEANN PIPE"};
+const unsigned long fingering_table_3[]={
+	62,62,0,
+	0x80FFFEFF, 0x00000000,
+	0x80FCFEFF, 0x02000000,
+	0x80FBFEFF, 0x04000000,
+	0x80F3FEFF, 0x05000000,
+	0x80EFFEFF, 0x07000000,
+	0x80CFFEFF, 0x09000000,
+	0x80BBFEFF, 0x0A000000,
+	0x80BFFEFF, 0x0B000000,
+	0x807FFEFF, 0x0C000000,
+	0xFFFFFFFF
+};
+    
+// SACKPIPA
+const char fingering_name_4[]={"SACKPIPA"};
+const unsigned long fingering_table_4[]={
+	62,63,45,
+	0x80FFFEFF, 0x00000000,
+	0x80FEFEFF, 0x02000000,
+	0x80FCFEFF, 0x04000000,
+	0x80FAFEFE, 0x05000000,
+	0x80F8FEFC, 0x06000000,
+	0x80F0FEF0, 0x07000000,
+	0x80E0FEF0, 0x09000000,
+	0x80C0FEE0, 0x0A000000,
+	0x80A0FEF0, 0x0B000000,
+	0x8080FEC0, 0x0D000000,
+	0x8000FEC0, 0x0F000000,
+	0xFFFFFFFF
+};
 
 #define FINGERING_GAITA_GALEGA 0
 #define FINGERING_GAITA_ASTURIANA 1
 #define FINGERING_GREAT_HIGHLAND_BAGPIPE 2
+#define FINGERING_UILLEANN_PIPE 3
+#define FINGERING_SACKPIPA 4
 
 
 typedef struct{
@@ -89,10 +125,11 @@ typedef struct{
     unsigned long* table;
 }fingering_t;
 
-#define TOTAL_FINGERINGS 3
+#define TOTAL_FINGERINGS 5
 const fingering_t fingerings[TOTAL_FINGERINGS]={
 	{(char*)fingering_name_0, (unsigned long*)fingering_table_0},
 	{(char*)fingering_name_1, (unsigned long*)fingering_table_1},
 	{(char*)fingering_name_2, (unsigned long*)fingering_table_2},
+	{(char*)fingering_name_3, (unsigned long*)fingering_table_3},
+	{(char*)fingering_name_4, (unsigned long*)fingering_table_4},
 };
-

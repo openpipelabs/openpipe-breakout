@@ -44,6 +44,8 @@ Happy OpenPiping!!!
 #define GAITA_GALEGA
 //#define GAITA_ASTURIANA
 //#define GHB
+//#define UILLEANN
+//#define SACKPIPA
 
 // DISABLE DRONE COMMENTING THE FOLLOWING LINE
 //#define ENABLE_DRONE
@@ -52,6 +54,7 @@ Happy OpenPiping!!!
 #ifdef GAITA_GALEGA
   #define FINGERING FINGERING_GAITA_GALEGA
   #define INSTRUMENT INSTRUMENT_GAITA_GALEGA
+  //#define INSTRUMENT INSTRUMENT_SINUSOIDS
 #endif
 
 #ifdef GAITA_ASTURIANA
@@ -64,6 +67,18 @@ Happy OpenPiping!!!
   #define INSTRUMENT INSTRUMENT_GHB
 #endif
 
+#ifdef UILLEANN
+  #define FINGERING FINGERING_UILLEANN_PIPE
+  #define INSTRUMENT INSTRUMENT_UILLEANN
+#endif
+
+#ifdef SACKPIPA
+  #define FINGERING FINGERING_SACKPIPA
+  #define INSTRUMENT INSTRUMENT_SACKPIPA
+#endif
+
+
+#define REBOOT_ON_SILENCE
 #define DEBOUNCE_DELAY 10
 #define SAMPLE_RATE 44100	// THIS PARAMETER MUST MATCH THE CORRESPONDING ONE IN samples.py
 
@@ -80,6 +95,7 @@ uint8_t sample_index, drone_index;
 uint16_t drone_sample_length;
 unsigned long * fingering_table;
 sample_t* samples_table;
+uint8_t playing;
 
 int timestamp;
 
@@ -90,10 +106,12 @@ void setup()
   Serial.print("FINGERING: ");
   Serial.println(fingerings[FINGERING].name);
   fingering_table=fingerings[FINGERING].table;
-  Serial.print("INSTRUMENT: ");
-  Serial.println(instruments[INSTRUMENT].name);
-  samples_table=instruments[INSTRUMENT].samples;
+  //Serial.print("INSTRUMENT: ");
+  //Serial.println(instruments[INSTRUMENT].name);
+  //samples_table=instruments[INSTRUMENT].samples;
+  samples_table=INSTRUMENT;
   
+#ifdef ENABLE_DRONE
   Serial.print("DRONE NOTE: ");
   Serial.print(fingering_table[2],DEC);
   Serial.print(" DRONE SAMPLE: ");
@@ -102,6 +120,7 @@ void setup()
   drone_sample_length=samples_table[drone_sample].len;
   Serial.print(" LENGTH: ");
   Serial.println(drone_sample_length,DEC);
+#endif
   
 
   pinMode(LED,OUTPUT);
@@ -124,6 +143,8 @@ void setup()
   sample_index=0;
   drone_index=0;
   previous_sample=0;
+  
+  playing=0;
   
   // UNCOMMENT FOR SOUND SAMPLE DEBUG OUTPUT
   /*
@@ -164,7 +185,9 @@ void loop()
     previous_control=control;
     
     if (control&1){
-       note=fingers_to_note(fingers);
+    	playing=1;
+    
+      note=fingers_to_note(fingers);
       sample=note_to_sample(note);
       Serial.print(" NOTE: ");
       Serial.print(note);
@@ -174,6 +197,12 @@ void loop()
     }else{
       sample=0xFF;
       Serial.println(" SILENCE");
+      #ifdef REBOOT_ON_SILENCE
+      if (playing){
+      	digitalWrite(speakerPin, LOW);
+      	asm volatile ("  jmp 0"); 
+      }
+      #endif
     }      
   }
     
