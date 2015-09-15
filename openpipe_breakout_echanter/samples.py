@@ -55,12 +55,12 @@ gaita_galega=(
 	(82, 932.3300, 1, (0.2423, 0.4105, 1.0, 0.196, 0.246, 0.2087, 0.1997, 0.0206, 0.0279, 0.0514, 0.0892, 0.1065, 0.1298, 0.1729, 0.0758, 0.0443, 0.0366, 0.0155, 0.012, 0.0102)),
 	(83, 987.7666, 1, (0.336, 0.4945, 1.0, 0.3454, 0.2002, 0.0763, 0.0705, 0.0253, 0.0754, 0.0422, 0.2107, 0.3412, 0.2618, 0.1425, 0.0864, 0.0299, 0.0223, 0.0375, 0.0464, 0.0596)),
 	(84, 1046.5023, 1, (0.4391, 1.0, 0.4572, 0.2788, 0.0629, 0.1973, 0.0596, 0.0133, 0.0569, 0.0371, 0.0557, 0.0333, 0.0205, 0.0279, 0.0186, 0.006, 0.0058, 0.0051, 0.0064, 0.0035)),
-	(85, 1108.7000, 1, (0.4391, 1.0, 0.4572, 0.2788, 0.0629, 0.1973, 0.0596, 0.0133, 0.0569, 0.0371, 0.0557, 0.0333, 0.0205, 0.0279, 0.0186, 0.006, 0.0058, 0.0051, 0.0064, 0.0035)),	
-	(86, 1174.7000, 1, (0.4391, 1.0, 0.4572, 0.2788, 0.0629, 0.1973, 0.0596, 0.0133, 0.0569, 0.0371, 0.0557, 0.0333, 0.0205, 0.0279, 0.0186, 0.006, 0.0058, 0.0051, 0.0064, 0.0035)),	
-	(87, 1244.5000, 1, (0.4391, 1.0, 0.4572, 0.2788, 0.0629, 0.1973, 0.0596, 0.0133, 0.0569, 0.0371, 0.0557, 0.0333, 0.0205, 0.0279, 0.0186, 0.006, 0.0058, 0.0051, 0.0064, 0.0035)),	
+	(85, 1108.7000, 1, (0.4391, 1.0, 0.4572, 0.2788, 0.0629, 0.1973, 0.0596, 0.0133, 0.0569, 0.0371, 0.0557, 0.0333, 0.0205, 0.0279, 0.0186, 0.006, 0.0058, 0.0051, 0.0064, 0.0035)),
+	(86, 1174.7000, 1, (0.4391, 1.0, 0.4572, 0.2788, 0.0629, 0.1973, 0.0596, 0.0133, 0.0569, 0.0371, 0.0557, 0.0333, 0.0205, 0.0279, 0.0186, 0.006, 0.0058, 0.0051, 0.0064, 0.0035)),
+	(87, 1244.5000, 1, (0.4391, 1.0, 0.4572, 0.2788, 0.0629, 0.1973, 0.0596, 0.0133, 0.0569, 0.0371, 0.0557, 0.0333, 0.0205, 0.0279, 0.0186, 0.006, 0.0058, 0.0051, 0.0064, 0.0035)),
 	(88, 1318.5000, 1, (0.4391, 1.0, 0.4572, 0.2788, 0.0629, 0.1973, 0.0596, 0.0133, 0.0569, 0.0371, 0.0557, 0.0333, 0.0205, 0.0279, 0.0186, 0.006, 0.0058, 0.0051, 0.0064, 0.0035)),
-	(89, 1396.9000, 1, (0.4391, 1.0, 0.4572, 0.2788, 0.0629, 0.1973, 0.0596, 0.0133, 0.0569, 0.0371, 0.0557, 0.0333, 0.0205, 0.0279, 0.0186, 0.006, 0.0058, 0.0051, 0.0064, 0.0035)),	
-	(90, 1480.0000, 1, (0.4391, 1.0, 0.4572, 0.2788, 0.0629, 0.1973, 0.0596, 0.0133, 0.0569, 0.0371, 0.0557, 0.0333, 0.0205, 0.0279, 0.0186, 0.006, 0.0058, 0.0051, 0.0064, 0.0035)),		
+	(89, 1396.9000, 1, (0.4391, 1.0, 0.4572, 0.2788, 0.0629, 0.1973, 0.0596, 0.0133, 0.0569, 0.0371, 0.0557, 0.0333, 0.0205, 0.0279, 0.0186, 0.006, 0.0058, 0.0051, 0.0064, 0.0035)),
+	(90, 1480.0000, 1, (0.4391, 1.0, 0.4572, 0.2788, 0.0629, 0.1973, 0.0596, 0.0133, 0.0569, 0.0371, 0.0557, 0.0333, 0.0205, 0.0279, 0.0186, 0.006, 0.0058, 0.0051, 0.0064, 0.0035)),
 )
 
 #GAITA ASTURIANA
@@ -178,12 +178,12 @@ for instrument in instruments:
 		freq=note[1]
 		amplitude=note[2]
 		total_samples=int(SAMPLE_RATE/freq)
-		#sinusoid=[int((math.sin(2.0*math.pi*freq*(x/float(SAMPLE_RATE)))) for x in range(total_samples)]	
+		#sinusoid=[int((math.sin(2.0*math.pi*freq*(x/float(SAMPLE_RATE)))) for x in range(total_samples)]
 		partials=[]
 		for i,partial in enumerate(note[3]):
 			partial_sinusoid=[(math.sin(2.0*math.pi*freq*(i+1)*(x/float(SAMPLE_RATE))))*partial for x in range((total_samples))]
 			partials.append(partial_sinusoid)
-		
+
 		#MIX PARTIALS
 		loop=[]
 		for i in range(total_samples):
@@ -191,7 +191,7 @@ for instrument in instruments:
 			for item in partials:
 				value+=item[i]
 			loop.append(value)
-		
+
 		#NORMALIZE
 		max_sample=max(max(loop),abs(min(loop)))
 		#print max_sample
@@ -202,16 +202,16 @@ for instrument in instruments:
 		normalized_loop=[int(x*factor) for x in loop]
 		#SCALE
 		normalized_loop=[int(x*amplitude) for x in normalized_loop]
-		
+
 		#print max(normalized_loop)
 		#print min(normalized_loop)
 		if SIGNED==False:
 			normalized_loop=[x+((((2**BITS))/2)-1) for x in normalized_loop]
-			
+
 		#print max(normalized_loop)
 		#print min(normalized_loop)
 		#sys.exit()
-	
+
 		sample_name="instrument_"+instrument[0]+"_note_"+str(note[0])
 		sample=(sample_name, note[0], normalized_loop)
 		samples.append(sample)
@@ -240,19 +240,19 @@ typedef struct{
 
 
 if BITS>8:
-	sample_type="prog_int16_t"
+	sample_type="const int16_t"
 else:
-	sample_type="prog_uint8_t"
-	
+	sample_type="const uint8_t"
+
 for item in generated:
 	#print item[0]
 	for sample in item[1]:
 		#print sample[0]
-		output+="PROGMEM %s %s [] = {" % (sample_type,sample[0])
+		output+="%s %s [] PROGMEM = {" % (sample_type,sample[0])
 		for value in sample[2]:
 			output+=str(value)+","
 		output+="};\r\n"
-		
+
 for item in generated:
 	output += "\r\nconst sample_t instrument_%s_samples[]={\r\n" % item[0]
 	for sample in item[1]:
@@ -268,14 +268,13 @@ for i,item in enumerate(generated):
 '''
 output += "\r\nconst instrument_t instruments[]={\r\n"
 for item in generated:
-	output+= "{(char*)\"%s\", (sample_t*)instrument_%s_samples},\r\n" % (item[0], item[0]) 
+	output+= "{(char*)\"%s\", (sample_t*)instrument_%s_samples},\r\n" % (item[0], item[0])
 output += "};"
 '''
-	
+
 
 print output
 
 f = open('samples.h', 'w')
 f.write(output)
 f.close
-
