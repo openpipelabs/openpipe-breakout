@@ -2,7 +2,7 @@ OpenPipe Breakout examples
 ==========================
 
 >**Note:**
-This are legacy and outdated examples for [OpenPipe Breakout](http://openpipe.cc/products/openpipe-breakout/). Somecannot work with recent Arduino IDE versions. Please refer to [OpenPipe](https://github.com/openpipelabs/OpenPipeLibrary) Library for updated examples.
+This are legacy and outdated examples for [OpenPipe Breakout](http://openpipe.cc/products/openpipe-breakout/). Some cannot work with recent Arduino IDE versions. Please refer to [OpenPipe](https://github.com/openpipelabs/OpenPipeLibrary) Library for updated examples.
 
 Here you can find some code examples for using the OpenPipe Breakout
 with Arduino. For more details, check out the product page at  
