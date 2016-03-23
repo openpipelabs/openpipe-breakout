@@ -137,12 +137,12 @@ void loop()
   
   // READ MPR121
   Wire.beginTransmission(0x5A);
-  Wire.send(0);
+  Wire.write(0);
   Wire.requestFrom(0x5A, 18);
   
   while(Wire.available())
   { 
-    buffer[i] = Wire.receive();
+    buffer[i] = Wire.read();
     i++;
   }
   Wire.endTransmission();
@@ -204,13 +204,13 @@ char mpr121Read(unsigned char address)
   char data;
 
   Wire.beginTransmission(0x5A);  // begin communication with the MPR121 on I2C address 0x5A
-  Wire.send(address);            // sets the register pointer
+  Wire.write(address);            // sets the register pointer
   Wire.requestFrom(0x5A, 1);     // request for the MPR121 to send you a single byte
 
   // check to see if we've received the byte over I2C
   if(1 <= Wire.available())
   {
-    data = Wire.receive();
+    data = Wire.read();
   }
 
   Wire.endTransmission();        // ends communication
@@ -221,8 +221,8 @@ char mpr121Read(unsigned char address)
 void mpr121Write(unsigned char address, unsigned char data)
 {
   Wire.beginTransmission(0x5A);  // begin communication with the MPR121 on I2C address 0x5A 
-  Wire.send(address);            // sets the register pointer
-  Wire.send(data);               // sends data to be stored
+  Wire.write(address);            // sets the register pointer
+  Wire.write(data);               // sends data to be stored
   Wire.endTransmission();        // ends communication
 }
 
